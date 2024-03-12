@@ -1,6 +1,6 @@
 #written by Ronen, Suri, Emma
 import pygame
-from useful_functions import textWrap
+from useful_functions import textWrap, scale_to_fullscreen
 
 # pygame setup
 pygame.init()
@@ -13,6 +13,7 @@ screen_height = screen_info.current_h
 #creates our "display surface" with some useful parameters
 flags = pygame.FULLSCREEN | pygame.HWSURFACE | pygame.DOUBLEBUF
 screen = pygame.display.set_mode((screen_width, screen_height), flags)
+pygame.display.set_caption("Fortune Fraud")
 
 #rectangle object that covers the entire screen (for testing purposes)
 screen_rect = pygame.rect.Rect(0, 0, screen_width, screen_height)
@@ -20,6 +21,11 @@ screen_rect = pygame.rect.Rect(0, 0, screen_width, screen_height)
 #pygame clock
 clock = pygame.time.Clock()
 
+#load images
+background_image = pygame.image.load("assets/background.jpeg") 
+curtain_image = pygame.image.load("assets/curtain.png") 
+crystal_ball_image = pygame.image.load("assets/crystal_ball.png") 
+border_image = pygame.image.load("assets/border.png") 
 
 running = True
 while running:
@@ -29,20 +35,22 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN:
+            #quit on escape key
             if event.key == pygame.K_ESCAPE:
                 running = False
 
-    #returns if 
-    mouse_click_location = pygame.mouse.get_pressed()
-
 
     # fill the screen with a color to wipe away anything from last frame
-    screen.fill(pygame.Color(32, 80, 255))
-    
-    test_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a facilisis velit. Donec placerat et neque et feugiat. Praesent metus nisl, maximus non vulputate in, rutrum sit amet elit. Duis at mauris viverra, euismod justo ut, aliquet ipsum. Phasellus congue nibh eleifend mauris condimentum tempus. Mauris malesuada lobortis dui, in viverra dui ornare quis. Fusce mollis bibendum ultrices. Integer in vestibulum dui. Sed nec rutrum felis. Maecenas dolor enim, efficitur at dui et, finibus porta lacus. Nulla malesuada dui dui, non vehicula purus dictum in."
-    textWrap(screen, test_text, "black", screen_rect, pygame.font.Font("Poppins-Regular.ttf", 24))
-    
+    screen.fill(pygame.Color(0, 0, 0))
+     
+    scale_to_fullscreen(screen, background_image)
+    scale_to_fullscreen(screen, curtain_image)
+    scale_to_fullscreen(screen, crystal_ball_image)
+    scale_to_fullscreen(screen, border_image)
 
+    test_text = "Ooh I am a mystical fortune teller and I want to tell you your very real fortuen hahahaksdhjfaklsdjfaljks"
+    textWrap(screen, test_text, "white", screen_rect, pygame.font.Font("Vollkorn.ttf", 24))
+   
 
     # flip() the display to put your work on screen
     pygame.display.flip()
