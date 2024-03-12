@@ -1,6 +1,7 @@
 #written by Ronen, Suri, Emma
 import pygame
 from useful_functions import textWrap, scale_to_fullscreen
+import character
 
 # pygame setup
 pygame.init()
@@ -16,7 +17,11 @@ screen = pygame.display.set_mode((screen_width, screen_height), flags)
 pygame.display.set_caption("Fortune Fraud")
 
 #rectangle object that covers the entire screen (for testing purposes)
-screen_rect = pygame.rect.Rect(0, 0, screen_width, screen_height)
+screen_rect = screen.get_rect()
+#defines where the text box should be relative to the size of the screen (works-ish)
+text_center_x, text_center_y = int(screen_width * 0.5), int(screen_height * 0.7)
+text_width, text_height = int(screen_width * 0.5), int(screen_height * 0.2)
+text_rect = pygame.rect.Rect(text_center_x - (text_width//2), text_center_y - (text_height//2), text_width, text_height)
 
 #pygame clock
 clock = pygame.time.Clock()
@@ -48,8 +53,8 @@ while running:
     scale_to_fullscreen(screen, crystal_ball_image)
     scale_to_fullscreen(screen, border_image)
 
-    test_text = "Ooh I am a mystical fortune teller and I want to tell you your very real fortuen hahahaksdhjfaklsdjfaljks"
-    textWrap(screen, test_text, "white", screen_rect, pygame.font.Font("Vollkorn.ttf", 24))
+    test_text = "Ooh I am a mystical fortune teller and I want to tell you your very real fortuen hahahaksdhjfaklsdjfaljksjahsdlf asdhlf asdjf hasjkd faskdfalsjkdhfajshdfkahsdf"
+    textWrap(screen, test_text, "white", text_rect, pygame.font.Font("Vollkorn.ttf", 24))
    
 
     # flip() the display to put your work on screen
