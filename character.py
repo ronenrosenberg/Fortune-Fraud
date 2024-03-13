@@ -14,12 +14,8 @@ class Character():
         self.animal_name = animal_name
         #contains the question/answer
         self.dialogue_location = dialogue["characters"][self.animal_name]
-        #Meyer-Briggs Info (assigned after )
-        self.answers = []
         #Sprite that represents the character
         self.sprite = pygame.image.load(sprite)
-    def get_dialogue(self):
-        pass
     def render_sprite(self, screen):
         utilities.render_centered_sprite(screen, self.sprite, 0.5, 0.55)
     def render_options(self, screen):
