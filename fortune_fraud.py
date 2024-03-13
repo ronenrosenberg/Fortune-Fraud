@@ -19,7 +19,7 @@ screen_width = screen_info.current_w
 screen_height = screen_info.current_h
 
 #creates our "display surface" with some useful parameters
-flags = pygame.FULLSCREEN
+flags = pygame.FULLSCREEN | pygame.DOUBLEBUF | pygame.HWSURFACE | pygame.HWACCEL
 screen = pygame.display.set_mode((screen_width, screen_height), flags)
 pygame.display.set_caption("Fortune Fraud")
 
@@ -46,8 +46,13 @@ text_box_image_scaled = utilities.scale_to_fullscreen(screen, text_box_image)
 
 current_character = random.choice(character.character_list)
 
+#variables for drawing replies
+left_option_rect, right_option_rect = utilities.centered_rectangle(0.12, 0.5, 0.2, 0.2), utilities.centered_rectangle(0.88, 0.5, 0.2, 0.2)
+unclicked_color, clicked_color = "orange", "yellow"
+
 running = True
-new_customer = True
+redraw = True
+
 while running:
     # poll for events
     for event in pygame.event.get():
@@ -63,8 +68,8 @@ while running:
 
     print(clock.get_fps())
     
-    #renders assets
-    if new_customer:
+    if redraw:
+        #renders assets
         screen.blit(background_image_scaled, (0,0))
         current_character.render_sprite(screen)
         screen.blit(curtain_image_scaled, (0,0))
@@ -72,37 +77,36 @@ while running:
         screen.blit(border_image_scaled, (0,0))
         screen.blit(text_box_image_scaled, (0,0))    
     
-    #displays question/dialogue text
-    utilities.text_wrap(screen, current_character.dialogue_location["question"], "black", text_rect, pygame.font.Font("Vollkorn.ttf", 36))
-    
-    #render text options (left and right)
+        #displays question/dialogue text
+        utilities.text_wrap(screen, current_character.dialogue_location["question"], "black", text_rect, pygame.font.Font("Vollkorn.ttf", 36))
 
-    #highlights options
-    left_option_rect, right_option_rect = utilities.centered_rectangle(0.12, 0.5, 0.2, 0.2), utilities.centered_rectangle(0.88, 0.5, 0.2, 0.2)
-    unclicked_color, clicked_color = "orange", "yellow"
+    #text options with highlighting
     left_color, right_color = unclicked_color, unclicked_color
     if left_option_rect.collidepoint(mouse_xy):
         left_color = clicked_color
+        redraw = True
     else:
         left_color = unclicked_color
     if right_option_rect.collidepoint(mouse_xy):
         right_color = clicked_color
+        redraw = True
     else:
         right_color = unclicked_color
 
     #draws everything
-    pygame.draw.rect(screen, left_color, left_option_rect)
-    pygame.draw.rect(screen, (0,0,0), left_option_rect, 7)
-    pygame.draw.rect(screen, right_color, right_option_rect)
-    pygame.draw.rect(screen, (0,0,0), right_option_rect, 7)
+    if redraw:
+        pygame.draw.rect(screen, left_color, left_option_rect)
+        pygame.draw.rect(screen, (0,0,0), left_option_rect, 7)
+        pygame.draw.rect(screen, right_color, right_option_rect)
+        pygame.draw.rect(screen, (0,0,0), right_option_rect, 7)
 
-    utilities.text_wrap(screen, current_character.dialogue_location["reply"][0][0], "white", left_option_rect, pygame.font.Font("Vollkorn.ttf", 36), bkg="black")
-    utilities.text_wrap(screen, current_character.dialogue_location["reply"][1][0], "white", right_option_rect, pygame.font.Font("Vollkorn.ttf", 36), bkg="black")
-    """
-    """
-    # flip() the display to put your work on screen
+        utilities.text_wrap(screen, current_character.dialogue_location["reply"][0][0], "white", left_option_rect, pygame.font.Font("Vollkorn.ttf", 36), bkg="black")
+        utilities.text_wrap(screen, current_character.dialogue_location["reply"][1][0], "white", right_option_rect, pygame.font.Font("Vollkorn.ttf", 36), bkg="black")
+    
+    
+    #updates display
     pygame.display.flip()
-
-    clock.tick(165)  # limits FPS to 60
-    new_customer = False
+    redraw = False
+    clock.tick(165)
+    
 pygame.quit()

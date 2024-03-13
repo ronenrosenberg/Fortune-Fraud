@@ -47,7 +47,6 @@ def text_wrap(surface, text, color, rect, font, aa=True, bkg=None):
 
     return text
 
-#this is kind of slow to call each frame but Imma worry about that later
 def scale_to_fullscreen(screen, image):
     
     #get screen dimensions
@@ -63,7 +62,7 @@ def scale_to_fullscreen(screen, image):
     scaled_image_width = int(image.get_width() * scale_factor)
     scaled_image_height = int(image.get_height() * scale_factor)
     scaled_image = pygame.transform.scale(image, (scaled_image_width, scaled_image_height))
-    
+
     return scaled_image
 
 
