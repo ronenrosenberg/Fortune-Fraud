@@ -1,5 +1,6 @@
 import pygame
 import json
+import utilities
 
 #loads the dialogue json file
 with open('dialogue.json') as f:
@@ -17,12 +18,14 @@ class Character():
         self.answers = []
         #Sprite that represents the character
         self.sprite = pygame.image.load(sprite)
-
-    def dialogue(self):
+    def get_dialogue(self):
+        pass
+    def render_sprite(self, screen):
+        utilities.render_centered_sprite(screen, self.sprite, 0.5, 0.55)
+    def render_options(self, screen):
         pass
 
-    def render(self, screen):
-        screen.blit(self.sprite, (1000, 600))
+
 
 character_list = []
 
@@ -30,6 +33,4 @@ character_list = []
 for k, v in dialogue["characters"].items():
     character_list.append(Character(k, "assets/ghost.png"))
 
-for thing in character_list:
-    print(thing.dialogue_location)
 
