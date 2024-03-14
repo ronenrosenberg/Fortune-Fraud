@@ -15,7 +15,7 @@ class Character():
         #contains the question/answer
         self.dialogue_location = dialogue["characters"][self.animal_name]
         #Sprite that represents the character
-        self.sprite = pygame.image.load(sprite)
+        self.sprite = pygame.image.load(sprite).convert_alpha()
     def render_sprite(self, screen):
         utilities.render_centered_sprite(screen, self.sprite, 0.5, 0.55)
     def render_options(self, screen):
@@ -25,8 +25,8 @@ class Character():
 
 character_list = []
 
-#generates each character, loading their dialogue, and adding them the list of characters
+#generates each character, loading their dialogue/sprite, and adding them the list of characters
 for k, v in dialogue["characters"].items():
-    character_list.append(Character(k, "assets/ghost.png"))
+    character_list.append(Character(k, v["sprite"]))
 
 

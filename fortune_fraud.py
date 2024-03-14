@@ -9,10 +9,6 @@ ctypes.windll.user32.SetProcessDPIAware()
 # pygame setup
 pygame.init()
 
-#my libraries
-import utilities
-import character
-
 #finds fullscreen resolution
 screen_info = pygame.display.Info()
 screen_width = screen_info.current_w
@@ -22,6 +18,11 @@ screen_height = screen_info.current_h
 flags = pygame.FULLSCREEN | pygame.DOUBLEBUF | pygame.HWSURFACE | pygame.HWACCEL
 screen = pygame.display.set_mode((screen_width, screen_height), flags)
 pygame.display.set_caption("Fortune Fraud")
+
+#my libraries
+import utilities
+import character
+
 
 #rectangle object that covers the entire screen (for testing purposes)
 screen_rect = screen.get_rect()
@@ -38,11 +39,12 @@ crystal_ball_image = pygame.image.load("assets/crystal_ball.PNG")
 border_image = pygame.image.load("assets/border.PNG") 
 text_box_image = pygame.image.load("assets/text_box.PNG") 
 
-background_image_scaled = utilities.scale_to_fullscreen(screen, background_image)
-curtain_image_scaled = utilities.scale_to_fullscreen(screen, curtain_image)
-crystal_ball_image_scaled = utilities.scale_to_fullscreen(screen, crystal_ball_image)
-border_image_scaled = utilities.scale_to_fullscreen(screen, border_image)
-text_box_image_scaled = utilities.scale_to_fullscreen(screen, text_box_image)
+#using convert_alpha() speeds up the game's performance a fuck ton
+background_image_scaled = utilities.scale_to_fullscreen(screen, background_image).convert_alpha()
+curtain_image_scaled = utilities.scale_to_fullscreen(screen, curtain_image).convert_alpha()
+crystal_ball_image_scaled = utilities.scale_to_fullscreen(screen, crystal_ball_image).convert_alpha()
+border_image_scaled = utilities.scale_to_fullscreen(screen, border_image).convert_alpha()
+text_box_image_scaled = utilities.scale_to_fullscreen(screen, text_box_image).convert_alpha()
 
 current_character = random.choice(character.character_list)
 
@@ -100,6 +102,8 @@ while running:
         screen.blit(curtain_image_scaled, (0,0))
         screen.blit(crystal_ball_image_scaled, (0,0))
         screen.blit(border_image_scaled, (0,0))
+        screen.blit(text_box_image_scaled, (0,0))
+        
         redraw = False
 
     if current_state == "customer_message" and redraw:
@@ -108,9 +112,10 @@ while running:
         screen.blit(curtain_image_scaled, (0,0))
         screen.blit(crystal_ball_image_scaled, (0,0))
         screen.blit(border_image_scaled, (0,0))
+        screen.blit(text_box_image_scaled, (0,0))
         
-    #leaving this out of redraw accidently makes a text fade effect, but also makes the game laggy as fuck
-    screen.blit(text_box_image_scaled, (0,0))    
+    #leaving this out of redraw accidently makes a text fade effect, but also makes the game laggy as fuck (actually nvm it doesn't work anymore very sad)
+    #screen.blit(text_box_image_scaled, (0,0))
     
 
     

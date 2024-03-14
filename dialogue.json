@@ -5,14 +5,16 @@
             "reply": [
                 ["Go out with friends and enjoy their company! That will refresh your energy and hype you up.", "E", "2"],
                 ["Take a day off to relax on your own. Time in solidarity will revitalize your willpower.", "I", "2"]
-            ]
+            ],
+            "sprite": "assets/jellyfish.PNG"
         },
         "Dog": {
             "question": "oog",
             "reply": [
                 ["asdfasf.", "E", "2"],
                 ["asdffdasdfasdfasdfasdfasdf.", "T", "2"]
-            ]
+            ],
+            "sprite": "assets/octopus.PNG"
         }
     }
 }
