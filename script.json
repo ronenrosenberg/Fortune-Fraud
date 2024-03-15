@@ -1,0 +1,44 @@
+{
+    "characters": {
+        "Ostrich": {
+            "question": "Tomorrow I participate in the first annual race to find out who the fastest land animal is! I want to have lots of energy for tomorrow, but my friends asked to hang out. So, what should I do?",
+            "reply": [
+                ["Go out with friends and enjoy their company! That will refresh your energy and hype you up.", "E", "2"],
+                ["Take a day off to relax on your own. Time in solidarity will revitalize your willpower.", "I", "2"]
+            ],
+            "sprite": "assets/jellyfish.PNG"
+        },
+        "Dog": {
+            "question": "oog",
+            "reply": [
+                ["asdfasf.", "E", "2"],
+                ["asdffdasdfasdfasdfasdfasdf.", "T", "2"]
+            ],
+            "sprite": "assets/octopus.PNG"
+        }
+    },
+    "interstitial_messages": [
+        "A wise choice?", 
+        "I personally see where you're coming from on that one, but not the choice I would have made.",
+        "Your advice seems questionable at best. ",
+        "That was hilarious! I don't care about the wellbeing of anyone in my life either. Anyhow...next!",
+        "While I respect that fact that you are the one making these decisions, I in fact do not respect your descisions.",
+        "Sure. I suppose.",
+        "Bit of an odd character, that one. Wild card. Best we avoid further meddling in their problems.",
+        "...",
+        "Did you know that during your conversation with that one, I wrote three books. What are you doing with your life?",
+        "I know sometimes I can come off as a little hyperbolically mean, but I genuinely believe you just made the world a worse place for everyone. From the bottom of my heart.",
+        "Heads up: that one may come back in greater numbers.",
+        "Actually, I sort of agree. A broken clock is wrong twice a day, as they say. Of course, something being broken has the implication that it can be fixed...",
+        "Yeah. Sure. Ok.",
+        "??? Just... ???          ???        ???     ????",
+        "Please don't assume the worst of me, but I believe you assume the worst in people.",
+        "I don't know about that one.",
+        "While on the one hand, you chose exactly what I thought you might, I can't help but to still feel disappointed.",
+        "I'll give you that one. Not really a better option, is there?",
+        "\"Had I more time, I would have written a shorter letter.\" -Not you apparently.",
+        "Not bad.",
+        "That was helpful?",
+        "Even though I disagree, I disagree."
+    ]
+}

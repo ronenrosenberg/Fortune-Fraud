@@ -89,7 +89,9 @@ state_index = 0
 
 replies = []
 
+
 current_character = random.choice(character.character_list)
+current_interstitial = random.choice(character.interstitial_message_list)
 
 while running:
     #empty unless there's a mouse click
@@ -99,9 +101,11 @@ while running:
     if state_index == len(state_list) - 1:
         state_index = 1
         character.character_list.remove(current_character)
+        character.interstitial_message_list.remove(current_interstitial)
 
         if len(character.character_list) != 0:
             current_character = random.choice(character.character_list)
+            current_interstitial = random.choice(character.interstitial_message_list)
         else:
             state_index = -1
     current_state = state_list[state_index]
@@ -141,12 +145,12 @@ while running:
 
     #displays question/dialogue text
     if current_state == "initiation":
-        utilities.text_wrap(screen, "You are a fraudulent fortune teller who is trying to trick your customers into believing in the strength of your mystical powers. Good luck!", "black", text_rect, pygame.font.Font("Vollkorn.ttf", 36))
+        utilities.text_wrap(screen, "Narrator: You are a fraudulent fortune teller who is trying to trick your customers into believing in the strength of your mystical powers for profit. Remember that everyone you talk to is a real being with emotions, hopes, and dreams. I know that despite being a master of none, you will inevitably steer them in the correct direction. Good luck!", "black", text_rect, pygame.font.Font("Vollkorn.ttf", 36))
         if mouse_click_xy != None and text_rect.collidepoint(mouse_click_xy):
             state_index += 1
     
     if current_state == "interstitial_message":
-        utilities.text_wrap(screen, "a message that goes in between", "black", text_rect, pygame.font.Font("Vollkorn.ttf", 36))
+        utilities.text_wrap(screen, "Narrator: " + current_interstitial, "black", text_rect, pygame.font.Font("Vollkorn.ttf", 36))
         if mouse_click_xy != None and text_rect.collidepoint(mouse_click_xy):
             state_index += 1
             

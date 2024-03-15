@@ -6,8 +6,8 @@ import math
 
 
 #loads the dialogue json file
-with open('dialogue.json') as f:
-    dialogue = json.load(f)
+with open('script.json') as f:
+    script = json.load(f)
 
 #class that represents each character
 class Character(pygame.sprite.Sprite):
@@ -16,7 +16,7 @@ class Character(pygame.sprite.Sprite):
         #name of the animal
         self.animal_name = animal_name
         #contains the question/answer
-        self.dialogue_location = dialogue["characters"][self.animal_name]
+        self.dialogue_location = script["characters"][self.animal_name]
         #sprite that represents the character
         self.image = pygame.image.load(image_dir).convert_alpha()
         self.image.set_alpha(0)
@@ -45,7 +45,10 @@ class Character(pygame.sprite.Sprite):
 character_list = []
 
 #generates each character, loading their dialogue/sprite, and adding them the list of characters
-for k, v in dialogue["characters"].items():
+for k, v in script["characters"].items():
     character_list.append(Character(k, v["sprite"]))
+
+#loads interstitial messages
+interstitial_message_list = script["interstitial_messages"]
 
 
