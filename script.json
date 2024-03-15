@@ -6,7 +6,7 @@
                 ["Go out with friends and enjoy their company! That will refresh your energy and hype you up.", "E", "3"],
                 ["Take a day off to relax on your own. Time in solidarity will revitalize your willpower", "I", "3"]
             ],
-            "sprite": "assets/ghost.png"
+            "sprite": "assets/ostrich.png"
         },
         "Seahorse": {
             "question": "Yesterday, I found out that my husband is pregnant, but he's a stay-at-home husband when I work all day, and I worry the kid isn't mine because of how distant he is. I want to approach him, but how should I do it?",
@@ -14,7 +14,7 @@
                 ["Using emotions as a source of vulnerability is the best way to approach problems in life. Do so, and they will guide you well.", "F", "3"],
                 ["Be clear-headed and fair in your approach, and stay steady and unswayed by words. You must go in with confidence and logic, and then you will find the truth.", "T", "3"]
             ],
-            "sprite": "assets/ghost.png"
+            "sprite": "assets/seahorse.png"
         },
         "Jellyfish": {
             "question": "I don't have a brain. I think I could grow one if I tried really hard... But, would it be worth it? ",
@@ -70,7 +70,7 @@
                 ["The law is strict, and so should your rein on your emotions be. Despite the joy it gives you, rummaging through the trash is not the best choice for your future.", "T", "1"],
                 ["Your emotions and urges harm none and bring you joy. With caution and acceptance of risk, your rummaging is a good choice in your life's future.", "F", "1"]
             ],
-            "sprite": "assets/ghost.png"
+            "sprite": "assets/raccoon.png"
         },
         "Turtle": {
             "question": "I am so slow, and so young, and I know I will live very long... But I'm unsure if my life's goal should be collecting wisdom in regards to my feelings, or collecting wisdoms such as knowledge instead.",
@@ -86,7 +86,7 @@
                 ["Plans... suck...! Spontaneity is fun, and you can always change your mind later.", "P", "2"],
                 ["Plans... rock...! You'll end up worrying without them, mister sloth." , "J", "2"]
             ],
-            "sprite": "assets/ghost.png"
+            "sprite": "assets/sloth.png"
         },
         "Bee": {
             "question": "I'm a buzzy queen bee, and I'm about to begin conzztructing my firzzt hive with my workerzz! I'm excited to get right into conzztruction, but I'm not zzhure how. What zzhould I zztart doing?",
