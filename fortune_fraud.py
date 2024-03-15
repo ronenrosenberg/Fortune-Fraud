@@ -1,4 +1,4 @@
-#sloppily coded by Ronen w/use of one pygame wiki function and a lot of hints from chatgpt
+#sloppily coded by Ronen w/use of one pygame wiki text wrap function and a lot of hints from chatgpt
 #credit for beautiful assets: Emma, Suri
 #credit for amazing script/json file: Suri
 #credit for weird-ass concept/ideas: Emma, Suri
@@ -77,10 +77,11 @@ border_image_scaled_bob = BobbingSprite(border_image_scaled)
 foreground_sprite_group = pygame.sprite.Group(curtain_image_scaled_bob, crystal_ball_image_scaled_bob, border_image_scaled_bob)
 
 #variables for drawing replies
-left_option_rect, right_option_rect = utilities.centered_rectangle(0.12, 0.5, 0.2, 0.2), utilities.centered_rectangle(0.88, 0.5, 0.2, 0.2)
-left_option_rect_padded, right_option_rect_padded = utilities.centered_rectangle(0.12, 0.5, 0.22, 0.22), utilities.centered_rectangle(0.88, 0.5, 0.22, 0.22)
+left_option_rect, right_option_rect = utilities.centered_rectangle(0.12, 0.5, 0.16, 0.28), utilities.centered_rectangle(0.88, 0.5, 0.16, 0.28)
+left_option_rect_padded, right_option_rect_padded = utilities.centered_rectangle(0.12, 0.5, 0.18, 0.3), utilities.centered_rectangle(0.88, 0.5, 0.18, 0.3)
 #determines what color 
 unclicked_color, clicked_color = (81, 240, 123), (95, 173, 116)
+left_color, right_color = unclicked_color, unclicked_color
 
 #list containing MB values for each given response
 replies = []
@@ -97,7 +98,6 @@ running = True
 while running:
     #empty unless there's a mouse click
     mouse_click_xy = None
-    print(clock.get_fps())
 
     #sets the current state
     if state_index == len(state_list) - 1:
@@ -169,7 +169,6 @@ while running:
             state_index += 1
 
         #text options with highlighting
-        left_color, right_color = unclicked_color, unclicked_color
         if left_option_rect.collidepoint(mouse_xy) :
             left_color = clicked_color
         else:
