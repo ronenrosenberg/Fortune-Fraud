@@ -107,7 +107,7 @@
         "Bit of an odd character, that one. Wild card. Best we avoid further meddling in their problems.",
         "...",
         "Did you know that during your conversation with that one, I wrote three books. What are you doing with your life?",
-        "I know sometimes I can come off as a little hyperbolically mean, but I genuinely believe you just made the world a worse place for everyone. From the bottom of my heart.",
+        "I know sometimes I can come off as hyperbolically mean, but I genuinely believe you just made the world a worse place for everyone. From the bottom of my heart.",
         "Heads up: that one may come back in greater numbers.",
         "Actually, I sort of agree. A broken clock is wrong twice a day, as they say. Of course, something being broken has the implication that it can be fixed...",
         "Yeah. Sure. Ok.",
@@ -120,5 +120,6 @@
         "Not bad.",
         "That was helpful?",
         "Even though I disagree, I disagree."
-    ]
+    ],
+    "OPENAI_API_KEY": "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"
 }

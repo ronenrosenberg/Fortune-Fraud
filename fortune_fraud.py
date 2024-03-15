@@ -5,8 +5,11 @@
 import pygame
 import random
 import math
+from openai import OpenAI
 
-#makes it so the current resolution is correctly detected, idk man
+
+
+#makes it so the current resolution is correctly detected (at least on windows), idk man
 import ctypes
 ctypes.windll.user32.SetProcessDPIAware()
 
@@ -28,6 +31,8 @@ clock = pygame.time.Clock()
 #my libraries
 import utilities
 import character
+
+
 
 #defines where the text box should be relative to the size of the screen
 text_rect = utilities.centered_rectangle(0.5, 0.95, 0.86, 0.2)
@@ -77,14 +82,25 @@ border_image_scaled_bob = BobbingSprite(border_image_scaled)
 foreground_sprite_group = pygame.sprite.Group(curtain_image_scaled_bob, crystal_ball_image_scaled_bob, border_image_scaled_bob)
 
 #variables for drawing replies
-left_option_rect, right_option_rect = utilities.centered_rectangle(0.12, 0.5, 0.16, 0.28), utilities.centered_rectangle(0.88, 0.5, 0.16, 0.28)
-left_option_rect_padded, right_option_rect_padded = utilities.centered_rectangle(0.12, 0.5, 0.18, 0.3), utilities.centered_rectangle(0.88, 0.5, 0.18, 0.3)
+left_option_rect, right_option_rect = utilities.centered_rectangle(0.13, 0.5, 0.16, 0.28), utilities.centered_rectangle(0.87, 0.5, 0.16, 0.28)
+left_option_rect_padded, right_option_rect_padded = utilities.centered_rectangle(0.13, 0.5, 0.18, 0.3), utilities.centered_rectangle(0.87, 0.5, 0.18, 0.3)
 #determines what color 
-unclicked_color, clicked_color = (81, 240, 123), (95, 173, 116)
+unclicked_color, clicked_color = (7, 4, 26), (10, 3, 54)
 left_color, right_color = unclicked_color, unclicked_color
 
-#list containing MB values for each given response
-replies = []
+#list containing MBTI values for each given response
+MBTI_dict = {
+    "E": 0,
+    "I": 0,
+    "S": 0,
+    "N": 0,
+    "T": 0,
+    "F": 0,
+    "J": 0,
+    "P": 0
+}
+#found at end
+personality_type = ""
 
 #randomly chosen character and interstitial message
 current_character = random.choice(character.character_list)
@@ -93,6 +109,8 @@ current_interstitial = random.choice(character.interstitial_message_list)
 #manage current state
 state_list = ["initiation" ,"customer_message", "interstitial_message", "end"]
 state_index = 0
+
+end_calc = False
 
 running = True
 while running:
@@ -135,10 +153,11 @@ while running:
     if current_state == "customer_message":
         screen.blit(current_character.image, current_character.rect)
         current_character.update()
-    if current_state == "interstitial_message":
+    elif current_state == "interstitial_message":
         screen.blit(current_character.image, current_character.rect)
         current_character.update()
         current_character.fade()
+
     #bobbing foreground
     foreground_sprite_group.draw(screen)
     foreground_sprite_group.update()
@@ -152,20 +171,20 @@ while running:
             state_index += 1
     
     #displays interstitial message, checks for state change
-    if current_state == "interstitial_message":
+    elif current_state == "interstitial_message":
         utilities.text_wrap(screen, "Narrator: " + current_interstitial, "black", text_rect, standard_font)
         if mouse_click_xy != None and text_rect.collidepoint(mouse_click_xy):
             state_index += 1
     
     #displays customer message + replies, checks for state change
-    if current_state == "customer_message":
+    elif current_state == "customer_message":
         current_character.fade(-30)
         utilities.text_wrap(screen, current_character.animal_name + ": " + current_character.dialogue_location["question"], "black", text_rect, standard_font)
         if mouse_click_xy != None and left_option_rect_padded.collidepoint(mouse_click_xy):
-            replies.append(current_character.dialogue_location["reply"][0][1:3])
+            MBTI_dict[current_character.dialogue_location["reply"][0][1]] += int(current_character.dialogue_location["reply"][0][2])
             state_index += 1
         elif mouse_click_xy != None and right_option_rect_padded.collidepoint(mouse_click_xy):
-            replies.append(current_character.dialogue_location["reply"][1][1:3])
+            MBTI_dict[current_character.dialogue_location["reply"][1][1]] += int(current_character.dialogue_location["reply"][1][2])
             state_index += 1
 
         #text options with highlighting
@@ -188,7 +207,25 @@ while running:
         utilities.text_wrap(screen, current_character.dialogue_location["reply"][0][0], "white", left_option_rect, standard_font, bkg="black")
         utilities.text_wrap(screen, current_character.dialogue_location["reply"][1][0], "white", right_option_rect, standard_font, bkg="black")
         
-    
+    elif current_state == "end":
+        if not end_calc:
+            if MBTI_dict["E"] >= MBTI_dict["I"]:
+                personality_type += "E"
+            else:
+                personality_type += "I"
+            if MBTI_dict["S"] >= MBTI_dict["N"]:
+                personality_type += "S"
+            else:
+                personality_type += "N"
+            if MBTI_dict["T"] >= MBTI_dict["F"]:
+                personality_type += "T"
+            else:
+                personality_type += "F"
+            if MBTI_dict["J"] >= MBTI_dict["P"]:
+                personality_type += "J"
+            else:
+                personality_type += "P"
+
     #updates display
     pygame.display.flip()
     clock.tick()
