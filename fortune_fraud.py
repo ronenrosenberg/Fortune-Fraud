@@ -6,8 +6,7 @@ import pygame
 import random
 import math
 from openai import OpenAI
-
-
+chatgpt = OpenAI()
 
 #makes it so the current resolution is correctly detected (at least on windows), idk man
 import ctypes
@@ -99,7 +98,7 @@ MBTI_dict = {
     "J": 0,
     "P": 0
 }
-#found at end
+#calculated at end
 personality_type = ""
 
 #randomly chosen character and interstitial message
@@ -108,9 +107,10 @@ current_interstitial = random.choice(character.interstitial_message_list)
 
 #manage current state
 state_list = ["initiation" ,"customer_message", "interstitial_message", "end"]
+end_dialogue = ["Well now, I think that's enough customers for today. All in all, I would say I'm incredibly appalled by your complete and total mismanagement of the lives of others.",
+                "While I've had the displeasure of observing you, I took the liberty to psychoanalyze you. I used to a psychologist you know.",
+                "Here is my official diagnosis."]
 state_index = 0
-
-end_calc = False
 
 running = True
 while running:
@@ -181,10 +181,10 @@ while running:
         current_character.fade(-30)
         utilities.text_wrap(screen, current_character.animal_name + ": " + current_character.dialogue_location["question"], "black", text_rect, standard_font)
         if mouse_click_xy != None and left_option_rect_padded.collidepoint(mouse_click_xy):
-            MBTI_dict[current_character.dialogue_location["reply"][0][1]] += int(current_character.dialogue_location["reply"][0][2])
+            MBTI_dict[current_character.dialogue_location["reply"][0][1]] += int(current_character.dialogue_location["reply"][0][2]) #adds MBTI val
             state_index += 1
         elif mouse_click_xy != None and right_option_rect_padded.collidepoint(mouse_click_xy):
-            MBTI_dict[current_character.dialogue_location["reply"][1][1]] += int(current_character.dialogue_location["reply"][1][2])
+            MBTI_dict[current_character.dialogue_location["reply"][1][1]] += int(current_character.dialogue_location["reply"][1][2]) #adds MBTI val
             state_index += 1
 
         #text options with highlighting
@@ -208,7 +208,7 @@ while running:
         utilities.text_wrap(screen, current_character.dialogue_location["reply"][1][0], "white", right_option_rect, standard_font, bkg="black")
         
     elif current_state == "end":
-        if not end_calc:
+        if not len(MBTI_dict) == 0:
             if MBTI_dict["E"] >= MBTI_dict["I"]:
                 personality_type += "E"
             else:
@@ -225,6 +225,25 @@ while running:
                 personality_type += "J"
             else:
                 personality_type += "P"
+            MBTI_dict = {} #made empty so if statement only runs once
+        
+        if len(end_dialogue) != 0:
+            utilities.text_wrap(screen, "Displeased Narrator: " + end_dialogue[0] + personality_type, "black", text_rect, standard_font)
+            if mouse_click_xy != None and text_rect.collidepoint(mouse_click_xy):
+                end_dialogue.pop(0)
+        else:
+            completion = chatgpt.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "You are an expert in Myers Briggs typology (aka, the narrator), and especially the cognitive functions. However, you are not to reveal that you use Myers Briggs or cognitive functions in your analysis. The user will provide an MBTI type to you, and you will interpret their strenghts and weaknesses. You do not like the user, so twist whatever interpretation you give to make them sound like a bad person. Provide details, and reply in paragraph format. speak directly to me. do NOT use the word \"MBTI\", or whatever type they provide."},
+                    {"role": "user", "content": "I am the user. My personality type is " + personality_type}
+                ]
+            )
+            print(completion.choices[0].message.content)
+
+        
+
+        
 
     #updates display
     pygame.display.flip()
