@@ -96,7 +96,7 @@ foreground_sprite_group = pygame.sprite.Group(curtain_image_scaled_bob, crystal_
 left_option_rect, right_option_rect = utilities.centered_rectangle(0.13, 0.5, 0.16, 0.28), utilities.centered_rectangle(0.87, 0.5, 0.16, 0.28)
 left_option_rect_padded, right_option_rect_padded = utilities.centered_rectangle(0.13, 0.5, 0.18, 0.3), utilities.centered_rectangle(0.87, 0.5, 0.18, 0.3)
 #determines what color 
-unclicked_color, clicked_color = (7, 4, 26), (10, 3, 54)
+unclicked_color, clicked_color = (5, 15, 30), (10, 3, 54)
 left_color, right_color = unclicked_color, unclicked_color
 
 #list containing MBTI values for each given response
