@@ -1,4 +1,4 @@
-#written by Ronen, Suri, Emma
+#sloppily coded by Ronen (mostly), Suri, Emma w/use of one pygame wiki function and a lot of hints from chatgpt
 import pygame
 import random
 import math
@@ -44,20 +44,6 @@ crystal_ball_image_scaled = utilities.scale_to_fullscreen(screen, crystal_ball_i
 border_image_scaled = utilities.scale_to_fullscreen(screen, border_image, 1.05).convert_alpha()
 text_box_image_scaled = utilities.scale_to_fullscreen(screen, text_box_image).convert_alpha()
 
-current_character = random.choice(character.character_list)
-
-#variables for drawing replies
-left_option_rect, right_option_rect = utilities.centered_rectangle(0.12, 0.5, 0.2, 0.2), utilities.centered_rectangle(0.88, 0.5, 0.2, 0.2)
-left_option_rect_padded, right_option_rect_padded = utilities.centered_rectangle(0.12, 0.5, 0.22, 0.22), utilities.centered_rectangle(0.88, 0.5, 0.22, 0.22)
-unclicked_color, clicked_color = "orange", "yellow"
-
-running = True
-
-#manage current state
-state_list = ["initiation" ,"customer_message", "interstitial_message", "end"]
-state_index = 0
-
-replies = []
 
 
 #experimental (bobbing animation stuff)
@@ -71,7 +57,7 @@ class BobbingSprite(pygame.sprite.Sprite):
         self.rect.centery = center_y_percent * screen_height
 
         self.original_y = self.rect.y
-        self.amplitude = 15 + (random.random() * 10) # Amplitude of the bobbing motion in pixels (varies slightly)
+        self.amplitude = 5 + (random.random() * 10) # Amplitude of the bobbing motion in pixels (varies slightly)
         self.speed = 0.0015  #how fast we bob
         self.phase_shift = random.random() #starts at random location
         
@@ -86,6 +72,21 @@ border_image_scaled_bob = BobbingSprite(border_image_scaled)
 
 foreground_sprite_group = pygame.sprite.Group(curtain_image_scaled_bob, crystal_ball_image_scaled_bob, border_image_scaled_bob)
 #text_sprite_group = pygame.sprite.Group(crystal_ball_image_scaled_bob, pygame.sprite.Sprite())
+
+#variables for drawing replies
+left_option_rect, right_option_rect = utilities.centered_rectangle(0.12, 0.5, 0.2, 0.2), utilities.centered_rectangle(0.88, 0.5, 0.2, 0.2)
+left_option_rect_padded, right_option_rect_padded = utilities.centered_rectangle(0.12, 0.5, 0.22, 0.22), utilities.centered_rectangle(0.88, 0.5, 0.22, 0.22)
+unclicked_color, clicked_color = "orange", "yellow"
+
+running = True
+
+#manage current state
+state_list = ["initiation" ,"customer_message", "interstitial_message", "end"]
+state_index = 0
+
+replies = []
+
+current_character = random.choice(character.character_list)
 
 while running:
     #empty unless there's a mouse click
@@ -123,7 +124,12 @@ while running:
     screen.blit(background_image_scaled, (0,0))
     #renders character
     if current_state == "customer_message":
-        current_character.render_sprite(screen)
+        screen.blit(current_character.image, current_character.rect)
+        current_character.update()
+    if current_state == "interstitial_message":
+        screen.blit(current_character.image, current_character.rect)
+        current_character.update()
+        current_character.fade()
     #bobbing foreground
     foreground_sprite_group.draw(screen)
     foreground_sprite_group.update()
@@ -142,6 +148,7 @@ while running:
             state_index += 1
             
     if current_state == "customer_message":
+        current_character.fade(-30)
         utilities.text_wrap(screen, current_character.animal_name + ": " + current_character.dialogue_location["question"], "black", text_rect, pygame.font.Font("Vollkorn.ttf", 36))
         if mouse_click_xy != None and left_option_rect_padded.collidepoint(mouse_click_xy):
             replies.append(current_character.dialogue_location["reply"][0][1:3])
@@ -166,10 +173,11 @@ while running:
         pygame.draw.rect(screen, (0,0,0), left_option_rect_padded, 7)
         pygame.draw.rect(screen, right_color, right_option_rect_padded)
         pygame.draw.rect(screen, (0,0,0), right_option_rect_padded, 7)
-
+        
+        #causes lag spike
         utilities.text_wrap(screen, current_character.dialogue_location["reply"][0][0], "white", left_option_rect, pygame.font.Font("Vollkorn.ttf", 36), bkg="black")
         utilities.text_wrap(screen, current_character.dialogue_location["reply"][1][0], "white", right_option_rect, pygame.font.Font("Vollkorn.ttf", 36), bkg="black")
-
+        
     
 
     #updates display

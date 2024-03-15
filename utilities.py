@@ -74,3 +74,6 @@ def render_centered_sprite(screen, sprite, center_x_pecent, center_y_percent):
     center_x, center_y = int(screen_width * center_x_pecent), int(screen_height * center_y_percent)
     width, height = sprite.get_width(), sprite.get_height()
     screen.blit(sprite, (center_x - (width//2), center_y - (height//2)))
+
+def center_xy(x_percent, y_percent):
+    return (screen_width * x_percent, screen_height * y_percent)
