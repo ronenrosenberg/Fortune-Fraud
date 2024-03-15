@@ -47,7 +47,7 @@ def text_wrap(surface, text, color, rect, font, aa=True, bkg=None):
 
     return text
 
-def scale_to_fullscreen(screen, image):
+def scale_to_fullscreen(screen, image, enlarge=1):
     
     #get screen dimensions
     screen_width, screen_height = screen.get_size()
@@ -56,7 +56,7 @@ def scale_to_fullscreen(screen, image):
     scale_factor_width = screen_width / image.get_width()
     scale_factor_height = screen_height / image.get_height()
     #choose the smallest scale factor so we fit entire image
-    scale_factor = min(scale_factor_width, scale_factor_height)
+    scale_factor = min(scale_factor_width, scale_factor_height) * enlarge
 
     # Scale image
     scaled_image_width = int(image.get_width() * scale_factor)
@@ -64,7 +64,6 @@ def scale_to_fullscreen(screen, image):
     scaled_image = pygame.transform.scale(image, (scaled_image_width, scaled_image_height))
 
     return scaled_image
-
 
 def centered_rectangle(center_x_pecent, center_y_percent, width_percent, height_percent):
     center_x, center_y = int(screen_width * center_x_pecent), int(screen_height * center_y_percent)
