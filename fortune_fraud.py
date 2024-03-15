@@ -41,7 +41,7 @@ import character
 
 
 #defines where the text box should be relative to the size of the screen
-text_rect = utilities.centered_rectangle(0.5, 0.95, 0.86, 0.2)
+text_rect = utilities.centered_rectangle(0.5, 0.95, 0.86, 0.22)
 final_paper_rect = utilities.centered_rectangle(0.5, 0.5, 0.6, 0.75)
 
 #load image assets
