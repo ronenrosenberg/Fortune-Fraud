@@ -1,7 +1,13 @@
-#sloppily coded by Ronen w/use of one pygame wiki text wrap function and a lot of hints from chatgpt
-#credit for beautiful assets: Emma, Suri
-#credit for amazing script/json file: Suri
-#credit for weird-ass concept/ideas: Emma, Suri
+"""
+sloppily coded by Ronen w/use of one pygame wiki text wrap function and a lot of hints from chatgpt
+credit for beautiful assets: Emma, Suri
+credit for amazing script/json file: Suri
+credit for weird-ass concept/ideas: Emma, Suri
+used these royalty-free photos: 
+    https://pixabay.com/illustrations/old-paper-vintage-coffee-stain-2228749/
+    https://pixabay.com/illustrations/seal-wax-seal-coat-of-arms-initials-2519331/
+"""
+
 import pygame
 import random
 import math
@@ -35,6 +41,7 @@ import character
 
 #defines where the text box should be relative to the size of the screen
 text_rect = utilities.centered_rectangle(0.5, 0.95, 0.86, 0.2)
+final_paper_rect = utilities.centered_rectangle(0.5, 0.5, 0.6, 0.75)
 
 #load image assets
 background_image = pygame.image.load("assets/background.PNG") 
@@ -42,16 +49,20 @@ curtain_image = pygame.image.load("assets/curtain.PNG")
 crystal_ball_image = pygame.image.load("assets/crystal_ball.PNG") 
 border_image = pygame.image.load("assets/border.PNG") 
 text_box_image = pygame.image.load("assets/text_box.PNG") 
+final_paper_image = pygame.image.load("assets/final_paper.PNG") 
 #using convert_alpha() speeds up the game's performance a fuck ton
 background_image_scaled = utilities.scale_to_fullscreen(screen, background_image).convert_alpha()
 curtain_image_scaled = utilities.scale_to_fullscreen(screen, curtain_image, 1.05).convert_alpha()
 crystal_ball_image_scaled = utilities.scale_to_fullscreen(screen, crystal_ball_image, 1.05).convert_alpha()
 border_image_scaled = utilities.scale_to_fullscreen(screen, border_image, 1.05).convert_alpha()
 text_box_image_scaled = utilities.scale_to_fullscreen(screen, text_box_image).convert_alpha()
+final_paper_image_scaled = utilities.scale_to_fullscreen(screen, final_paper_image, 0.8).convert_alpha()
+final_paper_image_scaled.set_alpha(0)
 
 #used to dynamically change font size across resolutions
 font_scaler = screen_height // 40
 standard_font = pygame.font.Font("Vollkorn.ttf", font_scaler)
+final_paper_font = pygame.font.Font("Vollkorn.ttf", int(font_scaler*1.3))
 
 #experimental (bobbing animation stuff)
 class BobbingSprite(pygame.sprite.Sprite):
@@ -107,10 +118,13 @@ current_interstitial = random.choice(character.interstitial_message_list)
 
 #manage current state
 state_list = ["initiation" ,"customer_message", "interstitial_message", "end"]
+state_index = 0
+
+#for final evaluation
 end_dialogue = ["Well now, I think that's enough customers for today. All in all, I would say I'm incredibly appalled by your complete and total mismanagement of the lives of others.",
                 "While I've had the displeasure of observing you, I took the liberty to psychoanalyze you. I used to a psychologist you know.",
                 "Here is my official diagnosis."]
-state_index = 0
+completion = None
 
 running = True
 while running:
@@ -143,6 +157,8 @@ while running:
             #left click
             if event.button == 1:
                 mouse_click_xy = event.pos
+                if len(end_dialogue) == 0:
+                    running = False
     
     #for reply box highlighting
     mouse_xy = pygame.mouse.get_pos()
@@ -162,7 +178,8 @@ while running:
     foreground_sprite_group.draw(screen)
     foreground_sprite_group.update()
     #text box
-    screen.blit(text_box_image_scaled, (0,0))
+    if len(end_dialogue) != 0:
+        screen.blit(text_box_image_scaled, (0,0))
 
     #displays question/dialogue text, checks for state change
     if current_state == "initiation":
@@ -228,23 +245,24 @@ while running:
             MBTI_dict = {} #made empty so if statement only runs once
         
         if len(end_dialogue) != 0:
-            utilities.text_wrap(screen, "Displeased Narrator: " + end_dialogue[0] + personality_type, "black", text_rect, standard_font)
+            utilities.text_wrap(screen, "Displeased Narrator: " + end_dialogue[0], "black", text_rect, standard_font)
             if mouse_click_xy != None and text_rect.collidepoint(mouse_click_xy):
                 end_dialogue.pop(0)
         else:
-            completion = chatgpt.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": "You are an expert in Myers Briggs typology (aka, the narrator), and especially the cognitive functions. However, you are not to reveal that you use Myers Briggs or cognitive functions in your analysis. The user will provide an MBTI type to you, and you will interpret their strenghts and weaknesses. You do not like the user, so twist whatever interpretation you give to make them sound like a bad person. Provide details, and reply in paragraph format. speak directly to me. do NOT use the word \"MBTI\", or whatever type they provide."},
-                    {"role": "user", "content": "I am the user. My personality type is " + personality_type}
-                ]
-            )
-            print(completion.choices[0].message.content)
-
-        
-
-        
-
+            if completion == None:
+                completion = chatgpt.chat.completions.create(
+                    model="gpt-3.5-turbo",
+                    messages=[
+                        {"role": "system", "content": "You are the narrator. You are a passive-aggressive and smarmy know-it-all. You have been supervising the user as they pretend to be a mystic, and give terrible advice to a plethora of animals. You are an expert in Myers Briggs typology. The user will provide an MBTI type to you, and you will interpret their strenghts and weaknesses. However, you are not to reveal that you use Myers Briggs or cognitive functions in your analysis. You do not like the user, so twist whatever interpretation you give to make them sound like a bad person. This should be in the form of a letter. do NOT use the word \"MBTI\", or whatever type they provide."},
+                        {"role": "user", "content": "I am the user. My personality type is " + personality_type + ". As a reminder, do not use the phrase "  + personality_type + " in your response. Respond in the form of a letter, when you address it 'Dear Moron' and close it by signing as the narrator. Respond in one large paragraph"}
+                    ]
+                )
+                completion = completion.choices[0].message.content.replace("\n", " ")
+                print(completion)
+            utilities.render_centered_sprite(screen, final_paper_image_scaled, 0.5, 0.5)
+            utilities.text_wrap(screen, completion, "black", final_paper_rect, final_paper_font)
+            final_paper_image_scaled.set_alpha(final_paper_image_scaled.get_alpha()+20)
+            
     #updates display
     pygame.display.flip()
     clock.tick()
