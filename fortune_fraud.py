@@ -1,6 +1,7 @@
 """
 sloppily coded by Ronen w/use of one pygame wiki text wrap function and a lot of hints from chatgpt
-credit for beautiful assets: Emma, Suri
+credit for beautiful assets: Emma
+credit for disgusting assets: Ronen
 credit for amazing script/json file: Suri
 credit for weird-ass concept/ideas: Emma, Suri
 used these royalty-free photos: 
@@ -254,14 +255,14 @@ while running:
                     model="gpt-3.5-turbo",
                     messages=[
                         {"role": "system", "content": "You are the narrator. You are a passive-aggressive and smarmy know-it-all. You have been supervising the user as they pretend to be a mystic, and give terrible advice to a plethora of animals. You are an expert in Myers Briggs typology. The user will provide an MBTI type to you, and you will interpret their strenghts and weaknesses. However, you are not to reveal that you use Myers Briggs or cognitive functions in your analysis. You do not like the user, so twist whatever interpretation you give to make them sound like a bad person. This should be in the form of a letter. do NOT use the word \"MBTI\", or whatever type they provide."},
-                        {"role": "user", "content": "I am the user. My personality type is " + personality_type + ". As a reminder, do not use the phrase "  + personality_type + " in your response. Respond in the form of a letter, when you address it 'Dear Moron' and close it by signing as the narrator. Respond in one large paragraph"}
+                        {"role": "user", "content": "I am the user. My personality type is " + personality_type + ". As a reminder, do not use the phrase "  + personality_type + " in your response. Respond in the form of a letter, when you address it 'Dear Moron' and close it by signing as the narrator. Respond in one large paragraph. Be comically mean and petty."}
                     ]
                 )
                 completion = completion.choices[0].message.content.replace("\n", " ")
-                print(completion)
             utilities.render_centered_sprite(screen, final_paper_image_scaled, 0.5, 0.5)
             utilities.text_wrap(screen, completion, "black", final_paper_rect, final_paper_font)
-            final_paper_image_scaled.set_alpha(final_paper_image_scaled.get_alpha()+20)
+            if final_paper_image_scaled.get_alpha() < 255:
+                final_paper_image_scaled.set_alpha(final_paper_image_scaled.get_alpha()+20)
             
     #updates display
     pygame.display.flip()

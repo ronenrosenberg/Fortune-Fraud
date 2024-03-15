@@ -38,7 +38,7 @@
                 ["Some say that in order to be happy in the world, you must first be happy with yourself. Just being with yourself will do you well.", "I", "2"],
                 ["Socialization is an important, enjoyable, and uplifting part of life! making sure you do so is key to long-term happiness.", "E", "2"]
             ],
-            "sprite": "assets/ghost.png"
+            "sprite": "assets/isopod.png"
         },
         "Hummingbird": {
             "question": "Hello! I'm a hummingbird and I can't help but be filled with energy all the time! In fact, I can't even punctuate my sentences calmly! Please, what will hollow and drain my energy reserves as fast as possible!?",
@@ -46,7 +46,7 @@
                 ["Isolation and loneliness can quickly remove your energy whenever you need, especially with silence and lack of stimulus. Solidarity will help you.", "E", "2"],
                 ["With all that energy, you should go out to a big crowded space! The sounds, lights, noise, and everything else should will drain your reserves when you need.", "I", "2"]
             ],
-            "sprite": "assets/ghost.png"
+            "sprite": "assets/hummingbird.png"
         },
         "Fish": {
             "question": "It's nice to see you! I need help- I'm actually a teacher at a school of fish, but I'm not sure what teaching method will help my students learn best. Please tell me what will result in better student retention, so I can secure better funding from the school's kelp district.",
@@ -54,7 +54,7 @@
                 ["Make sure that your students are able to view and explore concrete facts and evidence as you teach. Examples and details are key to understanding any subject, and will best increase your funding.", "S", "3"],
                 ["Prioritize explaining the concepts and possible applications of what you teach. Helping them understand the 'bigger picture' will better help retention and funding.", "N", "3"]
             ],
-            "sprite": "assets/ghost.png"
+            "sprite": "assets/fish.png"
         },
         "Mantis Shrimp": {
             "question": "I used to be a human, but a spooky witch turned me into a mantis shrimp! With my increased vision of UV and polarized light, I get pretty overwhelmed with all the colors in the ocean, and it's hard to see. What do you think will be easiest to help me adjust?",
@@ -62,7 +62,7 @@
                 ["Focus on small details, to take in a bit of color first. Through those small details, you will eventually adjust and find the new colors are easier to adjust to.", "S", "2"],
                 ["Try looking at landscapes or such from afar. Taking in big, general shapes and colors should help with later picking apart small colors. This will help you see better.", "N", "2"]
             ],
-            "sprite": "assets/ghost.png"
+            "sprite": "assets/mantis_shrimp.png"
         },
         "Raccoon": {
             "question": "I know I'm not supposed to rummage through trash, given it's illegal... But I never get caught, it's better rummaged than being wasted, and I absolutely love doing it! What should I do?",
@@ -78,7 +78,7 @@
                 ["Meaning in life comes from feelings, and the recognition of this fact is in itself wise. Your life will benefit from emotional depth.", "F", "2"],
                 ["Being knowledgeable and informed is an important aspect of life that will lead you to greater successes throughout your lifespan.", "T", "2"]
             ],
-            "sprite": "assets/ghost.png"
+            "sprite": "assets/turtle.png"
         },
         "Sloth": {
             "question": "I... am... mister... sloth... Should... I... make... plans... or... lay... in... tree...?",
@@ -94,7 +94,7 @@
                 ["There's no way to learn and improve without doing! With projects like this, you will find that flying in headfirst to see what works will help your building.", "P", "3"],
                 ["Do some research about hives nearby, and follow small steps consistently until your hive is built.", "J", "3"]
             ],
-            "sprite": "assets/ghost.png"
+            "sprite": "assets/bee.png"
         }
     },
     "interstitial_messages": [
