@@ -1,4 +1,7 @@
 #sloppily coded by Ronen (mostly), Suri, Emma w/use of one pygame wiki function and a lot of hints from chatgpt
+#credit for assets: Emma
+#credit for script/json file: Suri
+#credit for concept/ideas: Emma, Suri
 import pygame
 import random
 import math
@@ -58,7 +61,7 @@ class BobbingSprite(pygame.sprite.Sprite):
 
         self.original_y = self.rect.y
         self.amplitude = 5 + (random.random() * 10) # Amplitude of the bobbing motion in pixels (varies slightly)
-        self.speed = 0.0015  #how fast we bob
+        self.speed = 0.0018  #how fast we bob
         self.phase_shift = random.random() #starts at random location
         
         

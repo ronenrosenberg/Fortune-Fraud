@@ -10,7 +10,6 @@ with open('dialogue.json') as f:
     dialogue = json.load(f)
 
 #class that represents each character
-#
 class Character(pygame.sprite.Sprite):
     def __init__(self, animal_name, image_dir):
         super().__init__()
@@ -43,23 +42,6 @@ class Character(pygame.sprite.Sprite):
             elif new_alpha > 255:
                 new_alpha = 255
             self.image.set_alpha(new_alpha)
-        
-
-class BobbingSprite(pygame.sprite.Sprite):
-    def __init__(self, image, center_x_percent=0.5, center_y_percent=0.5):
-        super().__init__()
-        self.image = image.convert_alpha()
-        self.rect = self.image.get_rect()
-
-        self.rect.centerx = center_x_percent * screen_width
-        self.rect.centery = center_y_percent * screen_height
-
-        
-        
-        
-    
-
-
 character_list = []
 
 #generates each character, loading their dialogue/sprite, and adding them the list of characters
