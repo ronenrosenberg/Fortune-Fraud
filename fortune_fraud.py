@@ -89,6 +89,7 @@ state_index = 0
 
 replies = []
 
+font_scaler = screen_height // 40
 
 current_character = random.choice(character.character_list)
 current_interstitial = random.choice(character.interstitial_message_list)
@@ -145,18 +146,18 @@ while running:
 
     #displays question/dialogue text
     if current_state == "initiation":
-        utilities.text_wrap(screen, "Narrator: You are a fraudulent fortune teller who is trying to trick your customers into believing in the strength of your mystical powers for profit. Remember that everyone you talk to is a real being with emotions, hopes, and dreams. I know that despite being a master of none, you will inevitably steer them in the correct direction. Good luck!", "black", text_rect, pygame.font.Font("Vollkorn.ttf", 36))
+        utilities.text_wrap(screen, "Narrator: You are a fraudulent fortune teller who is trying to trick your customers into believing in the strength of your mystical powers for profit. Remember that everyone you talk to is a real being with emotions, hopes, and dreams. I know that despite being a master of none, you will inevitably steer them in the correct direction. Good luck!", "black", text_rect, pygame.font.Font("Vollkorn.ttf", font_scaler))
         if mouse_click_xy != None and text_rect.collidepoint(mouse_click_xy):
             state_index += 1
     
     if current_state == "interstitial_message":
-        utilities.text_wrap(screen, "Narrator: " + current_interstitial, "black", text_rect, pygame.font.Font("Vollkorn.ttf", 36))
+        utilities.text_wrap(screen, "Narrator: " + current_interstitial, "black", text_rect, pygame.font.Font("Vollkorn.ttf", font_scaler))
         if mouse_click_xy != None and text_rect.collidepoint(mouse_click_xy):
             state_index += 1
             
     if current_state == "customer_message":
         current_character.fade(-30)
-        utilities.text_wrap(screen, current_character.animal_name + ": " + current_character.dialogue_location["question"], "black", text_rect, pygame.font.Font("Vollkorn.ttf", 36))
+        utilities.text_wrap(screen, current_character.animal_name + ": " + current_character.dialogue_location["question"], "black", text_rect, pygame.font.Font("Vollkorn.ttf", font_scaler))
         if mouse_click_xy != None and left_option_rect_padded.collidepoint(mouse_click_xy):
             replies.append(current_character.dialogue_location["reply"][0][1:3])
             state_index += 1
@@ -182,8 +183,8 @@ while running:
         pygame.draw.rect(screen, (0,0,0), right_option_rect_padded, 7)
         
         #causes lag spike
-        utilities.text_wrap(screen, current_character.dialogue_location["reply"][0][0], "white", left_option_rect, pygame.font.Font("Vollkorn.ttf", 36), bkg="black")
-        utilities.text_wrap(screen, current_character.dialogue_location["reply"][1][0], "white", right_option_rect, pygame.font.Font("Vollkorn.ttf", 36), bkg="black")
+        utilities.text_wrap(screen, current_character.dialogue_location["reply"][0][0], "white", left_option_rect, pygame.font.Font("Vollkorn.ttf", font_scaler), bkg="black")
+        utilities.text_wrap(screen, current_character.dialogue_location["reply"][1][0], "white", right_option_rect, pygame.font.Font("Vollkorn.ttf", font_scaler), bkg="black")
         
     
 
