@@ -8,12 +8,9 @@ used these royalty-free photos:
     https://pixabay.com/illustrations/old-paper-vintage-coffee-stain-2228749/
     https://pixabay.com/illustrations/seal-wax-seal-coat-of-arms-initials-2519331/
 """
-
 import pygame
 import random
 import math
-from openai import OpenAI
-chatgpt = OpenAI()
 
 #makes it so the current resolution is correctly detected (at least on windows), idk man
 import ctypes
@@ -38,6 +35,9 @@ clock = pygame.time.Clock()
 import utilities
 import character
 
+#for final eval
+from openai import OpenAI
+chatgpt = OpenAI(api_key=character.OPENAI_API_KEY)
 
 
 #defines where the text box should be relative to the size of the screen
@@ -158,8 +158,8 @@ while running:
             #left click
             if event.button == 1:
                 mouse_click_xy = event.pos
-                if len(end_dialogue) == 0:
-                    running = False
+                #if len(end_dialogue) == 0:
+                #    running = False
     
     #for reply box highlighting
     mouse_xy = pygame.mouse.get_pos()

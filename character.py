@@ -51,4 +51,6 @@ for k, v in script["characters"].items():
 #loads interstitial messages
 interstitial_message_list = script["interstitial_messages"]
 
+OPENAI_API_KEY = script["OPENAI_API_KEY"]
+
 
