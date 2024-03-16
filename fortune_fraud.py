@@ -35,7 +35,7 @@ clock = pygame.time.Clock()
 import utilities
 import character
 
-#for final eval
+#for final eval using chatgpt
 from openai import OpenAI
 chatgpt = OpenAI(api_key=character.OPENAI_API_KEY)
 
