@@ -63,7 +63,7 @@ final_paper_image_scaled.set_alpha(0)
 #used to dynamically change font size across resolutions
 font_scaler = screen_height // 40
 standard_font = pygame.font.Font("Vollkorn.ttf", font_scaler)
-final_paper_font = pygame.font.Font("Vollkorn.ttf", int(font_scaler*1.3))
+final_paper_font = pygame.font.Font("Vollkorn.ttf", int(font_scaler*1.25))
 
 #experimental (bobbing animation stuff)
 class BobbingSprite(pygame.sprite.Sprite):
