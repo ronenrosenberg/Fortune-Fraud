@@ -16,14 +16,16 @@ import math
 import ctypes
 ctypes.windll.user32.SetProcessDPIAware()
 
+#pee pee
+
 # pygame setup
 pygame.init()
 #finds fullscreen resolution
 screen_info = pygame.display.Info()
-screen_width = screen_info.current_w
-screen_height = screen_info.current_h
+screen_width = 2560
+screen_height = 1440
 #creates our "display surface" with some useful parameters
-flags = pygame.FULLSCREEN | pygame.DOUBLEBUF | pygame.HWSURFACE | pygame.HWACCEL
+flags = pygame.DOUBLEBUF | pygame.HWSURFACE | pygame.HWACCEL
 screen = pygame.display.set_mode((screen_width, screen_height), flags)
 pygame.display.set_caption("Fortune Fraud")
 pygame.display.set_icon(pygame.image.load("assets/icon.png"))
