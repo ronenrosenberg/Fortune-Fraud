@@ -1,5 +1,5 @@
 """
-sloppily coded by Ronen w/use of one pygame wiki text wrap function and a lot of hints from chatgpt
+coded by Ronen
 credit for beautiful assets: Emma
 credit for disgusting assets: Ronen
 credit for amazing script/json file: Suri
@@ -15,8 +15,6 @@ import math
 #makes it so the current resolution is correctly detected (at least on windows), idk man
 import ctypes
 ctypes.windll.user32.SetProcessDPIAware()
-
-#pee pee
 
 # pygame setup
 pygame.init()
