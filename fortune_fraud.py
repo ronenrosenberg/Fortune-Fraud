@@ -3,7 +3,7 @@ coded by Ronen
 credit for beautiful assets: Emma
 credit for disgusting assets: Ronen
 credit for amazing script/json file: Suri
-credit for weird-ass concept/ideas: Emma, Suri
+credit for weird concept/ideas: Emma, Suri
 used these royalty-free photos: 
     https://pixabay.com/illustrations/old-paper-vintage-coffee-stain-2228749/
     https://pixabay.com/illustrations/seal-wax-seal-coat-of-arms-initials-2519331/
